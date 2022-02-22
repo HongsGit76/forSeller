@@ -2,7 +2,6 @@ package savemacro
 
 import (
 	"fmt"
-
 	"github.com/go-vgo/robotgo"
 )
 
@@ -34,6 +33,41 @@ func Save_keyboard(act_name, keyboard_action string) Act{
 	return action
 }
 
+func Save_act(act_name string) Act {
+	action := Act{
+		Act_name: act_name,
+		Mouse_xPos: 0,
+		Mouse_yPos: 0,
+		Keyboard_action: "",
+	}
+	return action
+}
+
 func (a Act) GetString() string{
-	return a.Act_name + " " + fmt.Sprint(a.Mouse_xPos) + " " + fmt.Sprint(a.Mouse_yPos)
+	return a.Act_name + ":" + fmt.Sprint(a.Mouse_xPos) + ":" + fmt.Sprint(a.Mouse_yPos)
+}
+
+func ExcuteMacro (macroInput []Act) {
+	robotgo.MouseSleep = 5
+	for _, macroID := range macroInput {
+		switch macroID.Act_name {
+		case "Move":
+			fmt.Println("Move")
+			robotgo.MoveMouse(macroID.Mouse_xPos, macroID.Mouse_yPos)
+		case "KeyUp":
+			fmt.Println("KeyUp")
+			robotgo.KeyUp(macroID.Keyboard_action)
+		case "KeyDown":
+			fmt.Println("KeyDown")
+			robotgo.KeyDown(macroID.Keyboard_action)
+		case "Mouse Down":
+			fmt.Println("KeyDown")
+			robotgo.MouseToggle("Down", "Left")
+		case "Mouse Up":
+			fmt.Println("KeyUp")
+			robotgo.MouseToggle("Up", "Left")
+		default :
+			fmt.Println("Should Not Pass")
+		}
+	}
 }
