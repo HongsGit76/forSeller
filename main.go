@@ -125,7 +125,7 @@ func main() {
 
 	mouseDown := widget.NewButton("Mouse Down", func ()  {
 		fmt.Println("Mouse Down")
-		act := savemacro.Save_act("Mouse:Down")
+		act := savemacro.Save_act("Mouse:Down",)
 		macroActs = append(macroActs, act)
 		data.Append("Mouse Down")
 	})

@@ -53,19 +53,19 @@ func ExcuteMacro (macroInput []Act) {
 		switch macroID.Act_name {
 		case "Move":
 			fmt.Println("Move")
-			robotgo.MoveMouse(macroID.Mouse_xPos, macroID.Mouse_yPos)
+			robotgo.MoveMouseSmooth(macroID.Mouse_xPos, macroID.Mouse_yPos)
 		case "KeyUp":
 			fmt.Println("KeyUp")
 			robotgo.KeyUp(macroID.Keyboard_action)
 		case "KeyDown":
 			fmt.Println("KeyDown")
 			robotgo.KeyDown(macroID.Keyboard_action)
-		case "Mouse Down":
-			fmt.Println("KeyDown")
-			robotgo.MouseToggle("Down", "Left")
-		case "Mouse Up":
-			fmt.Println("KeyUp")
-			robotgo.MouseToggle("Up", "Left")
+		case "Mouse:Down":
+			fmt.Println("Mouse:Down")
+			robotgo.MouseToggle("down", "left")
+		case "Mouse:Up":
+			fmt.Println("Mouse:Up")
+			robotgo.MouseToggle("up", "left")
 		default :
 			fmt.Println("Should Not Pass")
 		}
