@@ -1,7 +1,8 @@
-package savemacro
+package macroActs
 
 import (
 	"fmt"
+
 	"github.com/go-vgo/robotgo"
 )
 
@@ -48,12 +49,12 @@ func (a Act) GetString() string{
 }
 
 func ExcuteMacro (macroInput []Act) {
-	robotgo.MouseSleep = 5
+	robotgo.MouseSleep = 2
 	for _, macroID := range macroInput {
 		switch macroID.Act_name {
 		case "Move":
 			fmt.Println("Move")
-			robotgo.MoveMouseSmooth(macroID.Mouse_xPos, macroID.Mouse_yPos)
+			robotgo.MoveMouseSmooth(macroID.Mouse_xPos, macroID.Mouse_yPos, 0.00000001, 0.001)
 		case "KeyUp":
 			fmt.Println("KeyUp")
 			robotgo.KeyUp(macroID.Keyboard_action)

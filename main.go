@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
@@ -11,7 +12,7 @@ import (
 
 	// "github.com/go-vgo/robotgo"
 
-	savemacro "macroProj/macro/save_macro"
+	macroActs "macroProj/macro/macroActs"
 )
 
 func mainMenu(w fyne.Window){
@@ -73,7 +74,7 @@ func main() {
 	mainWindow := macroApp.NewWindow("Hongs App!")
 	mainWindow.Resize(fyne.NewSize(450, 450))
 	var macroInput []string
-	var macroActs []savemacro.Act
+	var macroActList []macroActs.Act
 
 	mainMenu(mainWindow)
 
@@ -125,22 +126,22 @@ func main() {
 
 	mouseDown := widget.NewButton("Mouse Down", func ()  {
 		fmt.Println("Mouse Down")
-		act := savemacro.Save_act("Mouse:Down",)
-		macroActs = append(macroActs, act)
+		act := macroActs.Save_act("Mouse:Down",)
+		macroActList = append(macroActList, act)
 		data.Append("Mouse Down")
 	})
 
 	mouseUp := widget.NewButton("Mouse Up", func ()  {
 		fmt.Println("Mouse Up")
-		act := savemacro.Save_act("Mouse:Up")
-		macroActs = append(macroActs, act)
+		act := macroActs.Save_act("Mouse:Up")
+		macroActList = append(macroActList, act)
 		data.Append("Mouse Up")
 	})
 
 	mouseClick := widget.NewButton("Mouse Click", func ()  {
 		fmt.Println("Mouse Click")
-		act := savemacro.Save_act("Mouse:Click")
-		macroActs = append(macroActs, act)
+		act := macroActs.Save_act("Mouse:Click")
+		macroActList = append(macroActList, act)
 		data.Append("Mouse Click")
 	})
 
@@ -162,7 +163,7 @@ func main() {
 		// sleep 1
 		fmt.Println("Excute Macro")
 		fmt.Println(macroInput)
-		savemacro.ExcuteMacro(macroActs)
+		macroActs.ExcuteMacro(macroActList)
 	})
 
 	buttonBox.Add(excuteMacroButton)
@@ -179,8 +180,8 @@ func main() {
 				actString := "KeyDown:"+string(ev.Name)
 				data.Append(actString)
 				macroInput = append(macroInput, actString)
-				act := savemacro.Save_keyboard("KeyDown",string(ev.Name))
-				macroActs = append(macroActs, act)
+				act := macroActs.Save_keyboard("KeyDown",string(ev.Name))
+				macroActList = append(macroActList, act)
 			} 
 		})
 		deskCanvas.SetOnKeyUp(func(ev *fyne.KeyEvent) {
@@ -189,23 +190,23 @@ func main() {
 				actString := "KeyUp:"+string(ev.Name)
 				data.Append(actString)
 				macroInput = append(macroInput, actString)
-				act := savemacro.Save_keyboard("KeyDown",string(ev.Name))
-				macroActs = append(macroActs, act)
+				act := macroActs.Save_keyboard("KeyDown",string(ev.Name))
+				macroActList = append(macroActList, act)
 			}
 		})
 	}
 	// Mouse Macro input
 	mainWindow.Canvas().SetOnTypedKey(func(ev *fyne.KeyEvent)  {
 		if ev.Name == "F7" && !keyboardMode && mouseMode{
-			act := savemacro.Save_mouse("Move")
+			act := macroActs.Save_mouse("Move")
 			data.Append(act.GetString())
 			// prependTo(macroBox, act.GetString())
 			macroInput = append(macroInput, act.GetString())
-			macroActs = append(macroActs, act)
+			macroActList = append(macroActList, act)
 			fmt.Println(act)
 		} else if ev.Name == "F5" {
 			fmt.Println("Press F5")
-			savemacro.ExcuteMacro(macroActs)
+			macroActs.ExcuteMacro(macroActList)
 		}
 	})
 
