@@ -50,6 +50,7 @@ func (a Act) GetString() string{
 
 func ExcuteMacro (macroInput []Act) {
 	robotgo.MouseSleep = 2
+	robotgo.KeySleep = 1
 	for _, macroID := range macroInput {
 		switch macroID.Act_name {
 		case "Move":
@@ -67,6 +68,9 @@ func ExcuteMacro (macroInput []Act) {
 		case "Mouse:Up":
 			fmt.Println("Mouse:Up")
 			robotgo.MouseToggle("up", "left")
+		case "Mouse:Click":
+			fmt.Println("Mouse:Click")
+			robotgo.MouseClick("left")
 		default :
 			fmt.Println("Should Not Pass")
 		}

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
@@ -68,17 +69,19 @@ func prependTo(g *fyne.Container, s string) {
 
 func main() {
 	fmt.Println("Macro Develop Start!!")
+	os.Setenv("FYNE_FONT","NanumGothicBold.ttf")
+
 
 	// window init
 	macroApp := app.New()
-	mainWindow := macroApp.NewWindow("Hongs App!")
+	mainWindow := macroApp.NewWindow("1000 셀러 매크로 프로그램 v1.0")
 	mainWindow.Resize(fyne.NewSize(450, 450))
 	var macroInput []string
 	var macroActList []macroActs.Act
 
 	mainMenu(mainWindow)
 
-	mainLabel := widget.NewLabel("Hongs Macro!")
+	mainLabel := widget.NewLabel("매크로 프로그램")
 	// macroBox := container.NewVBox()
 	
 	data := binding.BindStringList(
@@ -98,47 +101,47 @@ func main() {
 	keyboardMode := false 
 	mouseMode := false
 
-	keyboardModeState := widget.NewLabel("Ready! Press the button!")
+	keyboardModeState := widget.NewLabel("아래 버튼 중 수행할 매크로를 선택하세요.")
 	
 	buttonBox.Add(keyboardModeState)
 	
-	keboardMacro := widget.NewButton("Keyboard Macro", func ()  {
+	keboardMacro := widget.NewButton("키보드 매크로 입력", func ()  {
 		if keyboardMode {
 			mouseMode = false
 			keyboardMode = false
-			keyboardModeState.SetText("Ready! Press the button!")
+			keyboardModeState.SetText("아래 버튼 중 수행할 매크로를 선택하세요.")
 		}
 		keyboardMode = true
 		mouseMode = false
-		keyboardModeState.SetText("Keyboard Mode")
+		keyboardModeState.SetText("키보드를 입력하세요.")
 	})
 
-	mouseMacro := widget.NewButton("Mouse Macro (F7)", func ()  {
+	mouseMacro := widget.NewButton("마우스 위치 입력 (F7)", func ()  {
 		if mouseMode {
 			mouseMode = false
 			keyboardMode = false
-			keyboardModeState.SetText("Ready! Press the button!")
+			keyboardModeState.SetText("아래 버튼 중 수행할 매크로를 선택하세요.")
 	}
 		mouseMode = true
 		keyboardMode = false
-		keyboardModeState.SetText("Mouse Mode")
+		keyboardModeState.SetText("(F7)을 눌러 현재 마우스 위치를 복사합니다.")
 	})
 
-	mouseDown := widget.NewButton("Mouse Down", func ()  {
+	mouseDown := widget.NewButton("마우스 누르기", func ()  {
 		fmt.Println("Mouse Down")
 		act := macroActs.Save_act("Mouse:Down",)
 		macroActList = append(macroActList, act)
 		data.Append("Mouse Down")
 	})
 
-	mouseUp := widget.NewButton("Mouse Up", func ()  {
+	mouseUp := widget.NewButton("마우스 떼기", func ()  {
 		fmt.Println("Mouse Up")
 		act := macroActs.Save_act("Mouse:Up")
 		macroActList = append(macroActList, act)
 		data.Append("Mouse Up")
 	})
 
-	mouseClick := widget.NewButton("Mouse Click", func ()  {
+	mouseClick := widget.NewButton("마우스 클릭", func ()  {
 		fmt.Println("Mouse Click")
 		act := macroActs.Save_act("Mouse:Click")
 		macroActList = append(macroActList, act)
@@ -147,11 +150,13 @@ func main() {
 
 	mBox.OnSelected = func(id widget.ListItemID) {
 		fmt.Println("id: ", id)
-		delMacro := widget.NewButton("Delete Macro", func ()  {
+		delMacro := widget.NewButton("매크로 삭제", func ()  {
 			fmt.Println("Delete Macro")
 		})
 		buttonBox.Add(delMacro)
 	}
+
+	// TODO: 매크로 수행 간 시간 추가하는 매크로
 
 	buttonBox.Add(keboardMacro)
 	buttonBox.Add(mouseMacro)
@@ -159,9 +164,7 @@ func main() {
 	buttonBox.Add(mouseUp)
 	buttonBox.Add(mouseClick)
 
-	excuteMacroButton := widget.NewButton("Excute Macro", func ()  {
-		// sleep 1
-		fmt.Println("Excute Macro")
+	excuteMacroButton := widget.NewButton("매크로 수행(F5)", func ()  {
 		fmt.Println(macroInput)
 		macroActs.ExcuteMacro(macroActList)
 	})
@@ -197,6 +200,7 @@ func main() {
 	}
 	// Mouse Macro input
 	mainWindow.Canvas().SetOnTypedKey(func(ev *fyne.KeyEvent)  {
+		
 		if ev.Name == "F7" && !keyboardMode && mouseMode{
 			act := macroActs.Save_mouse("Move")
 			data.Append(act.GetString())
@@ -205,9 +209,8 @@ func main() {
 			macroActList = append(macroActList, act)
 			fmt.Println(act)
 		} else if ev.Name == "F5" {
-			fmt.Println("Press F5")
 			macroActs.ExcuteMacro(macroActList)
-		}
+		} 
 	})
 
 	mainContainer := container.NewBorder(mainLabel, nil, nil, nil,
