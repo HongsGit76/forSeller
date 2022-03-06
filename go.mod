@@ -3,7 +3,11 @@ module macroProj/macro
 go 1.17
 
 require (
-	fyne.io/fyne/v2 v2.1.2 // indirect
+	fyne.io/fyne/v2 v2.1.2
+	github.com/go-vgo/robotgo v0.100.10
+)
+
+require (
 	github.com/StackExchange/wmi v1.2.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fredbi/uri v0.0.0-20181227131451-3dcfdacbaaf3 // indirect
@@ -11,7 +15,6 @@ require (
 	github.com/go-gl/gl v0.0.0-20210813123233-e4099ee2221f // indirect
 	github.com/go-gl/glfw/v3.3/glfw v0.0.0-20211024062804-40e447a793be // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect
-	github.com/go-vgo/robotgo v0.100.10 // indirect
 	github.com/godbus/dbus/v5 v5.0.4 // indirect
 	github.com/goki/freetype v0.0.0-20181231101311-fa8a33aabaff // indirect
 	github.com/lxn/win v0.0.0-20210218163916-a377121e959e // indirect
