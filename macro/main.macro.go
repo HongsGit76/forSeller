@@ -1,4 +1,4 @@
-package macroActs
+package macro
 
 import (
 

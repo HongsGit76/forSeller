@@ -16,7 +16,7 @@ var MacroData = binding.BindStringList(
 func Client(){
 	macroApp := app.New()
 	mainWindow := macroApp.NewWindow("1000 셀러 매크로 프로그램")
-	mainWindow.Resize(fyne.NewSize(WindowSize.widthWindow, WindowSize.heightWindow))
+	mainWindow.Resize(fyne.NewSize(WindowSize.width, WindowSize.height))
 
 	mainMenu(mainWindow)
 

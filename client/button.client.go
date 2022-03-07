@@ -2,7 +2,7 @@ package client
 
 import (
 	"fmt"
-	"macroProj/macro/macroActs"
+	"macroProj/macro/macro"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
@@ -44,42 +44,50 @@ func addButton(btBox *fyne.Container) {
 	// {button} mouse act macro
 	mouseDown_L := widget.NewButton(LMouseDown, func ()  {
 		MacroData.Append(LMouseDown)
-		macroActs.MakeAndAppendMacro(macroActs.DOWN_MOUSE_L, 0,0,"")
+		macro.MakeAndAppendMacro(macro.DOWN_MOUSE_L, 0,0,"")
 	})
 	mouseDown_R := widget.NewButton(RMouseDown, func ()  {
 		MacroData.Append(RMouseDown)
-		macroActs.MakeAndAppendMacro(macroActs.DOWN_MOUSE_R, 0,0,"")
+		macro.MakeAndAppendMacro(macro.DOWN_MOUSE_R, 0,0,"")
 	})
 	mouseDownBox.Add(mouseDown_L)
 	mouseDownBox.Add(mouseDown_R)
 
 	mouseUp_L := widget.NewButton(LMouseUp, func ()  {
 		MacroData.Append(LMouseUp)
-		macroActs.MakeAndAppendMacro(macroActs.UP_MOUSE_L, 0,0,"")
+		macro.MakeAndAppendMacro(macro.UP_MOUSE_L, 0,0,"")
 	})
 	mouseUp_R := widget.NewButton(RMouseUp, func ()  {
 		MacroData.Append(RMouseUp)
-		macroActs.MakeAndAppendMacro(macroActs.UP_MOUSE_R, 0,0,"")
+		macro.MakeAndAppendMacro(macro.UP_MOUSE_R, 0,0,"")
 	})
 	mouseUpBox.Add(mouseUp_L)
 	mouseUpBox.Add(mouseUp_R)
 
 	mouseClick_L := widget.NewButton(LMouseClick, func ()  {
 		MacroData.Append(LMouseClick)
-		macroActs.MakeAndAppendMacro(macroActs.CLICK_MOUSE_L, 0,0,"")
+		macro.MakeAndAppendMacro(macro.CLICK_MOUSE_L, 0,0,"")
 	})
 	mouseClick_R := widget.NewButton(RMouseClick, func ()  {
 		MacroData.Append(RMouseClick)
-		macroActs.MakeAndAppendMacro(macroActs.CLICK_MOUSE_R, 0,0,"")
+		macro.MakeAndAppendMacro(macro.CLICK_MOUSE_R, 0,0,"")
 	})
 	mouseClickBox.Add(mouseClick_L)
 	mouseClickBox.Add(mouseClick_R)
 
 	excuteMacroButton := widget.NewButton("매크로 수행(F5)", func ()  {
-		fmt.Println(MacroInput)
-		fmt.Println(MacroData)
-		fmt.Println(macroActs.MacroActs)
+		fmt.Println(MacroInput)  // string
+		fmt.Println(MacroData)  // list view
+		fmt.Println(macro.MacroActs) // macros
 	})
+
+	keyboardModeState.Resize(fyne.NewSize(ButtonSize.width, ButtonSize.height))
+	keboardMacro.Resize(fyne.NewSize(ButtonSize.width, ButtonSize.height))
+	mouseMacro.Resize(fyne.NewSize(ButtonSize.width, ButtonSize.height))
+	mouseDownBox.Resize(fyne.NewSize(ButtonSize.width, ButtonSize.height))
+	mouseUpBox.Resize(fyne.NewSize(ButtonSize.width, ButtonSize.height))
+	mouseClickBox.Resize(fyne.NewSize(ButtonSize.width, ButtonSize.height))
+	excuteMacroButton.Resize(fyne.NewSize(ButtonSize.width, ButtonSize.height))
 
 	btBox.Add(keyboardModeState)
 	btBox.Add(keboardMacro)
