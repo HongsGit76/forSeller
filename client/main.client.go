@@ -5,6 +5,7 @@ import (
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/data/binding"
+	"fyne.io/fyne/v2/driver/desktop"
 	"fyne.io/fyne/v2/widget"
 )
 
@@ -46,6 +47,20 @@ func Client(){
 		container.NewGridWithColumns(2,macroCard,buttonCard),
 	)
 	mainWindow.SetContent(mainContainer)
+
+	// save mouse position or keyboard macro 
+	if deskCanvas, ok := mainWindow.Canvas().(desktop.Canvas); ok {
+		deskCanvas.SetOnKeyDown(func(ev *fyne.KeyEvent) {
+			if KeyboardMode {
+				
+			} 
+		})
+		deskCanvas.SetOnKeyUp(func(ev *fyne.KeyEvent) {
+			if KeyboardMode {
+				
+			}
+		})
+	}
 	
 	// run
 	mainWindow.ShowAndRun()

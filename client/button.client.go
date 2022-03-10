@@ -9,6 +9,7 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
+// addButton is add buttons on right side of main windows
 func addButton(btBox *fyne.Container) {
 	// current state message
 	keyboardModeState := widget.NewLabel(DefaultModeString)
@@ -80,14 +81,6 @@ func addButton(btBox *fyne.Container) {
 		fmt.Println(MacroData)  // list view
 		fmt.Println(macro.MacroActs) // macros
 	})
-
-	keyboardModeState.Resize(fyne.NewSize(ButtonSize.width, ButtonSize.height))
-	keboardMacro.Resize(fyne.NewSize(ButtonSize.width, ButtonSize.height))
-	mouseMacro.Resize(fyne.NewSize(ButtonSize.width, ButtonSize.height))
-	mouseDownBox.Resize(fyne.NewSize(ButtonSize.width, ButtonSize.height))
-	mouseUpBox.Resize(fyne.NewSize(ButtonSize.width, ButtonSize.height))
-	mouseClickBox.Resize(fyne.NewSize(ButtonSize.width, ButtonSize.height))
-	excuteMacroButton.Resize(fyne.NewSize(ButtonSize.width, ButtonSize.height))
 
 	btBox.Add(keyboardModeState)
 	btBox.Add(keboardMacro)

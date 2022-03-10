@@ -13,7 +13,7 @@ func mainMenu(w fyne.Window) {
 		fmt.Println("새매크로 입력")
 	})
 	save_:=fyne.NewMenuItem("Save Macro", func() {
-		fmt.Println("매크로 저장")
+		save_macro(w)
 	})
 	load_:=fyne.NewMenuItem("Load Macro", func() {
 		fmt.Println("매크로 불러오기")
