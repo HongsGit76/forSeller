@@ -2,7 +2,6 @@ package macro
 
 import "github.com/go-vgo/robotgo"
 
-func GetCurMousePosition(){
-	robotgo.GetMousePos()
-	
+func GetCurMousePosition() (int, int){
+	return robotgo.GetMousePos()
 }

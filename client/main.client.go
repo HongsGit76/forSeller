@@ -1,6 +1,9 @@
 package client
 
 import (
+	"fmt"
+	"macroProj/macro/macro"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
@@ -52,15 +55,24 @@ func Client(){
 	if deskCanvas, ok := mainWindow.Canvas().(desktop.Canvas); ok {
 		deskCanvas.SetOnKeyDown(func(ev *fyne.KeyEvent) {
 			if KeyboardMode {
-				
+				MacroData.Append(fmt.Sprintf("키보드 누름:%s",string(ev.Name)))
+				macro.MakeAndAppendMacro(7,0,0,string(ev.Name),0)
 			} 
 		})
 		deskCanvas.SetOnKeyUp(func(ev *fyne.KeyEvent) {
 			if KeyboardMode {
-				
+				MacroData.Append(fmt.Sprintf("키보드 뗌 :%s",string(ev.Name)))
+				macro.MakeAndAppendMacro(8,0,0,string(ev.Name),0)
 			}
 		})
 	}
+
+	mainWindow.Canvas().SetOnTypedKey(func(ev *fyne.KeyEvent)  {
+		if ev.Name == "F7" && !KeyboardMode && MouseMode{
+			x,y := macro.GetCurMousePosition()
+			macro.MakeAndAppendMacro(0,x,y,string(ev.Name),0)
+		}
+	})
 	
 	// run
 	mainWindow.ShowAndRun()
