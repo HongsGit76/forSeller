@@ -3,19 +3,15 @@ package client
 import (
 	"fmt"
 	"log"
-	"macroProj/macro/macro"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/dialog"
 )
 
-func remove_macro(slice []macro.MacroAct, index int) [] macro.MacroAct{
-	return append(slice[:index], slice[index+1:]...)
-}
-
 func clear_macro(){
-	macroLength := len(macro.MacroActs)
-	remove_macro(macro.MacroActs, macroLength)
+	macroLen := len(MacroInput)
+	MacroInput = MacroInput[macroLen:]
+	MacroData.Reload()
 }
 
 func save_macro(win fyne.Window) {

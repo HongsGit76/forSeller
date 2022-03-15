@@ -42,6 +42,10 @@ func Client(){
 		},
 	)
 
+	mBox.OnSelected = func(id widget.ListItemID) {
+		selectedId = id
+	}
+
 	// make card with list views
 	macroCard := widget.NewCard("", "macro", mBox)
 	buttonCard := widget.NewCard("", "macro type", buttonBox)
@@ -55,14 +59,14 @@ func Client(){
 	if deskCanvas, ok := mainWindow.Canvas().(desktop.Canvas); ok {
 		deskCanvas.SetOnKeyDown(func(ev *fyne.KeyEvent) {
 			if KeyboardMode {
-				MacroData.Append(fmt.Sprintf("키보드 누름:%s",string(ev.Name)))
-				macro.MakeAndAppendMacro(7,0,0,string(ev.Name),0)
+				MacroInput = append(MacroInput, fmt.Sprintf("   키보드 누름:%s",string(ev.Name)))
+				MacroData.Reload()
 			} 
 		})
 		deskCanvas.SetOnKeyUp(func(ev *fyne.KeyEvent) {
 			if KeyboardMode {
-				MacroData.Append(fmt.Sprintf("키보드 뗌 :%s",string(ev.Name)))
-				macro.MakeAndAppendMacro(8,0,0,string(ev.Name),0)
+				MacroInput = append(MacroInput, fmt.Sprintf("   키보드 뗌 :%s",string(ev.Name)))
+				MacroData.Reload()
 			}
 		})
 	}
@@ -70,7 +74,8 @@ func Client(){
 	mainWindow.Canvas().SetOnTypedKey(func(ev *fyne.KeyEvent)  {
 		if ev.Name == "F7" && !KeyboardMode && MouseMode{
 			x,y := macro.GetCurMousePosition()
-			macro.MakeAndAppendMacro(0,x,y,string(ev.Name),0)
+			MacroInput = append(MacroInput, fmt.Sprintf("   마우스 이동 :%d,%d",x,y))
+			MacroData.Reload()
 		}
 	})
 	
