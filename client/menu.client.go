@@ -10,25 +10,16 @@ import (
 func mainMenu(w fyne.Window) {
 	// menu items
 	new_:=fyne.NewMenuItem("New Macro", func() {
-		fmt.Println("새매크로 입력")
+		clear_macro()
 	})
-	save_:=fyne.NewMenuItem("Save Macro", func() {
-		fmt.Println("매크로 저장")
+	save_:=fyne.NewMenuItem("매크로 저장", func() {
+		save_macro(w)
 	})
 	load_:=fyne.NewMenuItem("Load Macro", func() {
 		fmt.Println("매크로 불러오기")
 	})
 	// menu drawer
 	fileMenuDrawer := fyne.NewMenu("File", new_, save_, load_)
-
-	start_:=fyne.NewMenuItem("Start", func() {
-		fmt.Println("매크로 시작")
-	})
-	stop_:=fyne.NewMenuItem("Stop", func() {
-		fmt.Println("매크로 중지")
-	})
-	
-	startMenuDrawer := fyne.NewMenu("Start", start_, stop_)
 
 	mouseSettings_:=fyne.NewMenuItem("Mouse Settings", func() {
 		fmt.Println("마우스 설정")
@@ -49,6 +40,6 @@ func mainMenu(w fyne.Window) {
 	infoMenuDrawer := fyne.NewMenu("Information", information_)
 
 	// set main menu
-	main_menu := fyne.NewMainMenu(fileMenuDrawer, startMenuDrawer, settingMenuDrawer, infoMenuDrawer)
+	main_menu := fyne.NewMainMenu(fileMenuDrawer, settingMenuDrawer, infoMenuDrawer)
 	w.SetMainMenu(main_menu)
 }
