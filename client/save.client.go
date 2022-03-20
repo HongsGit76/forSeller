@@ -1,7 +1,7 @@
 package client
 
 import (
-	"fmt"
+	// "fmt"
 	"log"
 
 	"fyne.io/fyne/v2"
@@ -41,23 +41,23 @@ func fileSaved(f fyne.URIWriteCloser, w fyne.Window) {
 	log.Println("Saved to...", f.URI())
 }
 
-func load_macro(win fyne.Window){
-	dialog.ShowFolderOpen(func(list fyne.ListableURI, err error) {
-		if err != nil {
-			dialog.ShowError(err, win)
-			return
-		}
-		if list == nil {
-			log.Println("Cancelled")
-			return
-		}
+// func load_macro(win fyne.Window){
+// 	dialog.ShowFolderOpen(func(list fyne.ListableURI, err error) {
+// 		if err != nil {
+// 			dialog.ShowError(err, win)
+// 			return
+// 		}
+// 		if list == nil {
+// 			log.Println("Cancelled")
+// 			return
+// 		}
 
-		children, err := list.List()
-		if err != nil {
-			dialog.ShowError(err, win)
-			return
-		}
-		out := fmt.Sprintf("Folder %s (%d children):\n%s", list.Name(), len(children), list.String())
-		dialog.ShowInformation("Folder Open", out, win)
-	}, win)
-}
+// 		children, err := list.List()
+// 		if err != nil {
+// 			dialog.ShowError(err, win)
+// 			return
+// 		}
+// 		out := fmt.Sprintf("Folder %s (%d children):\n%s", list.Name(), len(children), list.String())
+// 		dialog.ShowInformation("Folder Open", out, win)
+// 	}, win)
+// }

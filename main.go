@@ -12,7 +12,6 @@ func main(){
 		fmt.Println("good!")
 	} else {
 		fmt.Println("bad")
-		
 	}
 	client.Client()
 }

@@ -18,18 +18,18 @@ func remove_macro(slice []string, n int) []string {
 // addButton is add buttons on right side of main windows
 func addButton(btBox *fyne.Container) {
 	// current state message
-	keyboardModeState := widget.NewLabel(DefaultModeString)
+	noticeString := widget.NewLabel(DefaultModeString)
 
 	// {button} keyboard macro
 	keboardMacro := widget.NewButton("키보드 매크로", func ()  {
 		if KeyboardMode {
 			MouseMode = false
 			KeyboardMode = false
-			keyboardModeState.SetText(DefaultModeString)
+			noticeString.SetText(DefaultModeString)
 		}
 		KeyboardMode = true
 		MouseMode = false
-		keyboardModeState.SetText(KeyboardModeString)
+		noticeString.SetText(KeyboardModeString)
 	})
 	
 	// {button} mouse position macro
@@ -37,11 +37,11 @@ func addButton(btBox *fyne.Container) {
 		if MouseMode {
 			MouseMode = false
 			KeyboardMode = false
-			keyboardModeState.SetText(DefaultModeString)
+			noticeString.SetText(DefaultModeString)
 	}
 		MouseMode = true
 		KeyboardMode = false
-		keyboardModeState.SetText(MouseModeString)
+		noticeString.SetText(MouseModeString)
 	})
 
 	mouseDownBox := container.NewHBox()
@@ -95,11 +95,12 @@ func addButton(btBox *fyne.Container) {
 	}
 
 	excuteMacroButton := widget.NewButton("매크로 수행(F5)", func ()  {
-		fmt.Println(MacroInput)  // string
-		for _, str := range MacroInput {
-			fmt.Println(str)
+		if len(MacroInput) == 0 {
+			noticeString.SetText(NoMacroListString)
+		} else {
+			noticeString.SetText(StopString)
+			RunMacro()
 		}
-		// macro.RunMacro()
 	})
 
 	delMacro := widget.NewButton("매크로 삭제", func ()  {
@@ -107,7 +108,7 @@ func addButton(btBox *fyne.Container) {
 		MacroData.Reload()
 	})
 
-	btBox.Add(keyboardModeState)
+	btBox.Add(noticeString)
 	btBox.Add(keboardMacro)
 	btBox.Add(mouseMacro)
 	btBox.Add(mouseDownBox)

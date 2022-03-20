@@ -2,7 +2,6 @@ package client
 
 import (
 	"fmt"
-	"macroProj/macro/macro"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
@@ -73,7 +72,7 @@ func Client(){
 
 	mainWindow.Canvas().SetOnTypedKey(func(ev *fyne.KeyEvent)  {
 		if ev.Name == "F7" && !KeyboardMode && MouseMode{
-			x,y := macro.GetCurMousePosition()
+			x,y := GetCurMousePosition()
 			MacroInput = append(MacroInput, fmt.Sprintf("   마우스 이동 :%d,%d",x,y))
 			MacroData.Reload()
 		}
