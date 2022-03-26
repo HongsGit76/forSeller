@@ -104,6 +104,9 @@ func addButton(btBox *fyne.Container) {
 	})
 
 	delMacro := widget.NewButton("매크로 삭제", func ()  {
+		if len(MacroInput) - 1 < selectedId {
+			return
+		}
 		MacroInput = remove_macro(MacroInput, selectedId)
 		MacroData.Reload()
 	})

@@ -64,7 +64,7 @@ func Client(){
 		})
 		deskCanvas.SetOnKeyUp(func(ev *fyne.KeyEvent) {
 			if KeyboardMode {
-				MacroInput = append(MacroInput, fmt.Sprintf("   키보드 뗌 :%s",string(ev.Name)))
+				MacroInput = append(MacroInput, fmt.Sprintf("   키보드 뗌:%s",string(ev.Name)))
 				MacroData.Reload()
 			}
 		})
@@ -73,7 +73,7 @@ func Client(){
 	mainWindow.Canvas().SetOnTypedKey(func(ev *fyne.KeyEvent)  {
 		if ev.Name == "F7" && !KeyboardMode && MouseMode{
 			x,y := GetCurMousePosition()
-			MacroInput = append(MacroInput, fmt.Sprintf("   마우스 이동 :%d,%d",x,y))
+			MacroInput = append(MacroInput, fmt.Sprintf("   마우스 이동:%d,%d",x,y))
 			MacroData.Reload()
 		}
 	})
