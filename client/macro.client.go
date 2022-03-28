@@ -35,21 +35,12 @@ func RunMacro() {
 				if strings.Contains(macros, ":"){
 					splitMacro := strings.Split(macros, ":")
 					if strings.Compare(splitMacro[0], "   키보드 누름") == 0 {
-						if strings.Contains(splitMacro[1], "Control") {
-							nextSplitMacro := strings.Split(MacroInput[index + 1], ":")
-							robotgo.KeyToggle(splitMacro[1], nextSplitMacro[1])
-						} else if beforeSplit := strings.Split(MacroInput[index - 1], ":"); strings.Contains(beforeSplit[1], "Control") {
-							continue
-						} 
 						robotgo.KeyToggle(splitMacro[1])
 					} else if strings.Compare(splitMacro[0], "   키보드 뗌") == 0  {
-						if strings.Contains(splitMacro[1], "Control") {
-							nextSplitMacro := strings.Split(MacroInput[index - 1], ":")
-							robotgo.KeyToggle(splitMacro[1], nextSplitMacro[1], "up")
-						} else if beforeSplit := strings.Split(MacroInput[index + 1], ":"); strings.Contains(beforeSplit[1], "Control") {
-							continue
-						} 
 						robotgo.KeyToggle(splitMacro[1], "up")
+					} else if strings.Compare(splitMacro[0], "   내용 붙여넣기") == 0  {
+						fmt.Println(splitMacro[1])
+						robotgo.PasteStr(splitMacro[1])
 					} else if strings.Compare(splitMacro[0], "   마우스 이동") == 0 {
 						location := strings.Split(splitMacro[1], ",")
 						x, errX := strconv.Atoi(location[0])

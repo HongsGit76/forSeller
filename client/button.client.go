@@ -82,14 +82,25 @@ func addButton(btBox *fyne.Container) {
 	mouseClickBox.Add(mouseClick_L)
 	mouseClickBox.Add(mouseClick_R)
 
-	entry := widget.NewEntry()
-	entry.Validator = validation.NewRegexp(`[^a-z]`, "숫자만 입력해 주세요.")
+	entryTime := widget.NewEntry()
+	entryTime.Validator = validation.NewRegexp(`[^a-z]`, "숫자만 입력해 주세요.")
 
-	form := &widget.Form{
+	formTime := &widget.Form{
 		Items: []*widget.FormItem{ // we can specify items in the constructor
-			{Text: "시간 추가", Widget: entry}},
+			{Text: "시간 추가", Widget: entryTime}},
 		OnSubmit: func() { // optional, handle form submission
-			MacroInput = append(MacroInput, fmt.Sprintf("   시간 추가:%s", entry.Text))
+			MacroInput = append(MacroInput, fmt.Sprintf("   시간 추가:%s", entryTime.Text))
+			MacroData.Reload()
+		},
+	}
+
+	entryText := widget.NewEntry()
+
+	formText := &widget.Form{
+		Items: []*widget.FormItem{ // we can specify items in the constructor
+			{Text: "복사할 내용을 입력해 주세요.", Widget: entryText}},
+		OnSubmit: func() { // optional, handle form submission
+			MacroInput = append(MacroInput, fmt.Sprintf("   내용 붙여넣기:%s", entryText.Text))
 			MacroData.Reload()
 		},
 	}
@@ -118,6 +129,7 @@ func addButton(btBox *fyne.Container) {
 	btBox.Add(mouseUpBox)
 	btBox.Add(mouseClickBox)
 	btBox.Add(excuteMacroButton)
-	btBox.Add(form)
+	btBox.Add(formTime)
+	btBox.Add(formText)
 	btBox.Add(delMacro)
 }
